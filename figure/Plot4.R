@@ -32,16 +32,34 @@ getData <- function()
   startDate = correctDate("1/2/2007","00:00:00")
   endDate = correctDate("2/2/2007","23:59:59")
   testdata <- subset(testdata, is.between(Date,startDate,endDate))
-
+  
   testdata
 }
 
-printplot2 <- function()
+printplot4 <- function()
 {
   testdata <- getData()
+  
+  par(mfrow=c(2,2))
+  par(mar=c(4,4,2,2))
+  
+  ## Plot 1
   plot(testdata$Date,testdata$Global_active_power,ylab="Global active power (kilowatts)",xlab="",type = "l")
-  dev.copy(png,file='Plot2.png')
+  
+  ## Plot 2
+  plot(testdata$Date,testdata$Voltage,ylab="Voltage",xlab="datetime",type = "l")
+  
+  ## Plot 3
+  with(testdata, plot(Date,Sub_metering_1,type="l",ylab = "Energy sub metering",xlab = ""))
+  with(testdata, lines(Date,Sub_metering_2,type="l",col="red"))
+  with(testdata, lines(Date,Sub_metering_3,type="l",col="blue"))
+  legend("topright",lty = 1,col = c("black","red","blue"),legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+  
+  ## Plot 4
+  plot(testdata$Date,testdata$Global_reactive_power,ylab="Global_reactive_power",xlab="datetime",type = "l")
+  
+  dev.copy(png,file='Plot4.png')
   dev.off()
 }
 
-printplot2()
+printplot4()

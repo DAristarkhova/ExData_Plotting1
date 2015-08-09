@@ -22,7 +22,10 @@ getData <- function()
 printplot1 <- function()
 {
   testdata <- getData()
-  hist(testdata$Global_active_power,col ="green",main = "Global active power", xlab="Global active power (kilowatts)")
+  hist(testdata$Global_active_power,col ="red",main = "Global active power", xlab="Global active power (kilowatts)")
+  
+  dev.copy(png,file='Plot1.png')
+  dev.off()
 }
 
 printplot1()
